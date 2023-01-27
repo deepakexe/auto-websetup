@@ -1,7 +1,7 @@
-!/bin/bash
+#!/bin/bash
 
 
-#############EXECUTION: ./websetup2.sh<space>link of tooplate template#############
+#############EXECUTION: ./websetup_multios.sh<space>link of tooplate template#############
 
 
  #Declaring variables
@@ -13,11 +13,11 @@ NAME=$(echo $1 |tail -c -$NEW_LEN| head -c -5)
 yum --help &> /dev/null
 if [ $? -eq 0 ]
 then
-    echo"OS Identified as: CentOS"
+    echo "OS Identified as: CentOS"
     PKGS="httpd unzip wget"
     SVC="httpd"
 else
-    echo"OS Identified as: Ubuntu"
+    echo "OS Identified as: Ubuntu"
     PKGS="apache2 unzip wget"
     SVC="apache2"
 fi
@@ -28,7 +28,7 @@ echo "###################################################################"
 
 echo
  #install the dependencies
-sudo apt install $PKGS -y > /dev/null
+sudo apt install $PKGS -y &> /dev/null
 
 
 echo "##################################################################"
