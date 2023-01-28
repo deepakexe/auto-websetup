@@ -1,17 +1,37 @@
-!/bin/bash
+#!/bin/bash
+
+############# AUTHOR: Deepak PURI github@deepakexe #######################
+############# EXECUTION: ./websetup_multios.sh<space>link of tooplate template #############
 
 
-#############EXECUTION: ./websetup2.sh<space>link of tooplate template#############
-
-
- #Declaring variables
-PKGS="apache2 unzip wget"
+    #Declaring variables
 TEMP_DIR="/tmp/webfiles"
-SVC="apache2"
-LEN=$(echo $1 | awk '{print length}')
-NUM=38
-NEW_LEN=`expr $LEN - $NUM`
-NAME=$(echo $1 |tail -c -$NEW_LEN| head -c -5)
+
+    #finding no. of fields
+num=$( echo $1 | tr -dc '/'| wc -c )
+num=$(( $num + 1 ))
+
+    #checking extension
+x=$( echo $1 | grep ".zip$" | wc -l )                #x is number of times .zip has appeared
+
+    #Deciding name
+if [ $x -gt 0 ]                                      #if x >0 (means it has zip extension)
+then
+    NAME=$( echo $1 | cut -d / -f $num | head -c -5 ) #if extension is zip,return last field & remove last 5 characters
+else
+    NAME=$( echo $1 | cut -d / -f $num )              #else return laast field
+fi
+yum --help &> /dev/null                               #execute a yum command 
+if [ $? -eq 0 ]                                       #if return code is 0; it is RHEL
+then                                                  #else it is a ubuntu
+    echo "OS Identified as: CentOS"
+    PKGS="httpd unzip wget"
+    SVC="httpd"
+else
+    echo "OS Identified as: Ubuntu"
+    PKGS="apache2 unzip wget"
+    SVC="apache2"
+fi
 
 echo "###################################################################"
 echo "Installing dependencies"
@@ -19,7 +39,7 @@ echo "###################################################################"
 
 echo
  #install the dependencies
-sudo apt install $PKGS -y > /dev/null
+sudo apt install $PKGS -y &> /dev/null
 
 
 echo "##################################################################"
@@ -41,14 +61,14 @@ echo "Downloading the template..."
 echo "###################################################################"
 echo
  #downloading the template from the website
-wget $1  > /dev/null
+wget $1  &> /dev/null
 echo
 echo "###################################################################"
 echo "Unzipping the files..."
 echo "###################################################################"
 echo 
  #unzipping files
-unzip $NAME.zip > /dev/null
+unzip $NAME.zip &> /dev/null
 echo
 echo "###################################################################"
 echo "Copying files...."
