@@ -16,10 +16,12 @@ then
     echo "OS Identified as: CentOS"
     PKGS="httpd unzip wget"
     SVC="httpd"
+    PM="yum"
 else
     echo "OS Identified as: Ubuntu"
     PKGS="apache2 unzip wget"
     SVC="apache2"
+    PM="apt"
 fi
 
 echo "###################################################################"
@@ -28,7 +30,7 @@ echo "###################################################################"
 
 echo
  #install the dependencies
-sudo apt install $PKGS -y &> /dev/null
+sudo $PM install $PKGS -y &> /dev/null
 
 
 echo "##################################################################"
