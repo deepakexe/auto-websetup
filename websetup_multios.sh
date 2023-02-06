@@ -34,7 +34,7 @@ sudo $PM install $PKGS -y &> /dev/null
 
 
 echo "##################################################################"
-echo "Starting and enabling APACHE...2"
+echo "Starting and enabling $SVC...."
 echo "##################################################################"
 echo
  #start and enable apache2
@@ -82,4 +82,5 @@ echo
  #removing the temporary files
 sudo rm -rf $TEMP_DIR
 echo
+ #showing status of the service
 systemctl status $SVC

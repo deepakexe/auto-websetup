@@ -1,0 +1,11 @@
+cut.sh
+decision.sh
+list.txt
+loop.sh
+loops_while.sh
+monit1.sh
+monit.sh
+read_command.sh
+test2.sh
+test3.sh
+test.sh
